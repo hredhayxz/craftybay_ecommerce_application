@@ -13,8 +13,8 @@ class ProductData {
   int? brandId;
   String? createdAt;
   String? updatedAt;
-  Null? brand;
-  Null? category;
+  Brand? brand;
+  Category? category;
 
   ProductData(
       {this.id,
@@ -49,8 +49,9 @@ class ProductData {
     brandId = json['brand_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    brand = json['brand'];
-    category = json['category'];
+    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
+    category =
+    json['category'] != null ? Category.fromJson(json['category']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -69,8 +70,74 @@ class ProductData {
     data['brand_id'] = brandId;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
-    data['brand'] = brand;
-    data['category'] = category;
+    if (brand != null) {
+      data['brand'] = brand!.toJson();
+    }
+    if (category != null) {
+      data['category'] = category!.toJson();
+    }
+    return data;
+  }
+}
+
+class Brand {
+  int? id;
+  String? brandName;
+  String? brandImg;
+  String? createdAt;
+  String? updatedAt;
+
+  Brand(
+      {this.id, this.brandName, this.brandImg, this.createdAt, this.updatedAt});
+
+  Brand.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    brandName = json['brandName'];
+    brandImg = json['brandImg'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['brandName'] = brandName;
+    data['brandImg'] = brandImg;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    return data;
+  }
+}
+
+class Category {
+  int? id;
+  String? categoryName;
+  String? categoryImg;
+  String? createdAt;
+  String? updatedAt;
+
+  Category(
+      {this.id,
+        this.categoryName,
+        this.categoryImg,
+        this.createdAt,
+        this.updatedAt});
+
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    categoryName = json['categoryName'];
+    categoryImg = json['categoryImg'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['categoryName'] = categoryName;
+    data['categoryImg'] = categoryImg;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
