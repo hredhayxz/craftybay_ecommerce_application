@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_application/data/models/slider_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeSlider extends StatelessWidget {
-  HomeSlider({super.key});
+  HomeSlider({super.key, required this.sliders});
+  final List<SliderData> sliders;
 
   final ValueNotifier<int> _selectedSlider = ValueNotifier(0);
 
@@ -20,16 +22,29 @@ class HomeSlider extends StatelessWidget {
               onPageChanged: (int page, _) {
                 _selectedSlider.value = page;
               }),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: sliders.map((sliderData) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(color: Colors.grey.shade400),
                     alignment: Alignment.center,
-                    child: Text(
-                      'image $i',
-                      style: const TextStyle(fontSize: 16.0),
+                    child: Stack(
+                      children: [
+                        Image.network(
+                          sliderData.image ?? '',
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Text(
+                            sliderData.title ?? '', style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white
+                          ),
+                          ),
+                        ),
+                      ],
                     ));
               },
             );
@@ -42,7 +57,7 @@ class HomeSlider extends StatelessWidget {
           valueListenable: _selectedSlider,
           builder: (context, value, _) {
             List<Widget> dottedList = [];
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < sliders.length; i++) {
               dottedList.add(Container(
                 width: 10,
                 height: 10,

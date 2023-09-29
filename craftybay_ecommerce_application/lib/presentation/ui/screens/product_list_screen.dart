@@ -1,3 +1,4 @@
+import 'package:craftybay_ecommerce_application/data/models/product_data.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_card.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
@@ -5,20 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({super.key});
+  final List<ProductData> productData;
+  final String remarkName;
+
+  const ProductListScreen(
+      {super.key, required this.productData, required this.remarkName});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
-          title: 'Electronics', elevation: 1,
+          title: remarkName ?? '',
+          elevation: 1,
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: GridView.builder(
+          itemCount: productData.length ?? 0,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             crossAxisSpacing: 16,
@@ -29,8 +36,10 @@ class ProductListScreen extends StatelessWidget {
               onTap: () {
                 Get.to(() => ProductDetailsScreen());
               },
-              child: const FittedBox(
-                child: ProductCard(),
+              child: FittedBox(
+                child: ProductCard(
+                  productData: productData[index],
+                ),
               ),
             );
           },

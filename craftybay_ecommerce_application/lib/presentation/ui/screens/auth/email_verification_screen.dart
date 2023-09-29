@@ -95,7 +95,7 @@ class EmailVerificationScreen extends StatelessWidget {
     final response =
         await controller.verifyEmail(_emailTEController.text.trim());
     if (response) {
-      Get.to(() => const OTPVerificationScreen());
+      Get.to(() => OTPVerificationScreen(email: _emailTEController.text.trim()));
     } else {
       Get.snackbar(
         'Failed',

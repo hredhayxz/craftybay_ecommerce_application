@@ -33,7 +33,7 @@ class WishListScreen extends StatelessWidget {
               return GestureDetector(
                 onTap: () {},
                 child: const FittedBox(
-                  child: ProductCard(),
+                  //child: ProductCard(),
                 ),
               );
             },

@@ -1,10 +1,13 @@
+import 'package:craftybay_ecommerce_application/data/models/product_data.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductListView extends StatelessWidget {
-  const ProductListView({super.key});
+  final List<ProductData> productData;
+
+  const ProductListView({super.key, required this.productData});
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +15,13 @@ class ProductListView extends StatelessWidget {
       height: 165,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 20,
+        itemCount: productData.length ?? 0,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
               Get.to(() => ProductDetailsScreen());
             },
-            child: const ProductCard(),
+            child: ProductCard(productData: productData[index],),
           );
         },
       ),

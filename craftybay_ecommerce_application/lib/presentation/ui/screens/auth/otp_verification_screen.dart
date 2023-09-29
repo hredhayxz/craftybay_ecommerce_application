@@ -1,21 +1,26 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/email_verification_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/otp_verification_screen_controller.dart';
-import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/complete_profile_screen.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/craftyBay_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  const OTPVerificationScreen({super.key});
+  const OTPVerificationScreen({super.key, required this.email});
+  final String email;
 
   @override
   State<OTPVerificationScreen> createState() => _OTPVerificationScreenState();
 }
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
+  final EmailVerificationScreenController _emailVerificationScreenController =
+      Get.find<EmailVerificationScreenController>();
   final OtpVerificationScreenController _otpVerificationScreenController =
-      Get.find<OtpVerificationScreenController>();
+  Get.find<OtpVerificationScreenController>();
+  final TextEditingController _otpTEController = TextEditingController();
 
   @override
   void initState() {
@@ -59,6 +64,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                   height: 24,
                 ),
                 PinCodeTextField(
+                  controller: _otpTEController,
                   length: 4,
                   obscureText: false,
                   animationType: AnimationType.fade,
@@ -90,12 +96,20 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.offAll(const CompleteProfileScreen());
-                    },
-                    child: const Text('Next'),
-                  ),
+                  child: GetBuilder<OtpVerificationScreenController>(
+                      builder: (otpController) {
+                    if (otpController.otpVerificationInProgress) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ElevatedButton(
+                      onPressed: () {
+                        verifyOtp(otpController);
+                      },
+                      child: const Text('Next'),
+                    );
+                  }),
                 ),
                 const SizedBox(
                   height: 24,
@@ -126,7 +140,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       TextButton(
                         onPressed: () {
                           if (_otpVerificationScreenController.seconds == 0) {
-                            _otpVerificationScreenController.seconds = 10;
+                            _emailVerificationScreenController.verifyEmail(widget.email);
+                            _otpVerificationScreenController.seconds = 120;
                             _otpVerificationScreenController.startTimer();
                           }
                         },
@@ -147,5 +162,20 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         ),
       ),
     );
+  }
+  Future<void> verifyOtp(OtpVerificationScreenController controller) async {
+    final response =
+    await controller.verifyOtp(widget.email, _otpTEController.text.trim());
+    if (response) {
+      Get.offAll(() => const MainBottomNavScreen());
+    } else {
+      Get.snackbar(
+        'Failed',
+        'Otp verification failed! Try again',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        borderRadius: 10,
+      );
+    }
   }
 }
