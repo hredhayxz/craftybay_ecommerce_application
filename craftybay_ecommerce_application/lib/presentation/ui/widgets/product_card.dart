@@ -1,5 +1,5 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
-import 'package:craftybay_ecommerce_application/data/models/product_data.dart';
+import 'package:craftybay_ecommerce_application/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {

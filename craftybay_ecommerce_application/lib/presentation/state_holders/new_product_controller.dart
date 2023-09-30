@@ -1,17 +1,17 @@
 import 'package:craftybay_ecommerce_application/data/models/network_response.dart';
-import 'package:craftybay_ecommerce_application/data/models/new_product_model.dart';
+import 'package:craftybay_ecommerce_application/data/models/product_model.dart';
 import 'package:craftybay_ecommerce_application/data/services/network_caller.dart';
 import 'package:craftybay_ecommerce_application/data/utility/urls.dart';
 import 'package:get/get.dart';
 
 class NewProductController extends GetxController {
   bool _getNewProductsInProgress = false;
-  NewProductModel _newProductModel = NewProductModel();
+  ProductModel _newProductModel = ProductModel();
   String _errorMessage = '';
 
   bool get getNewProductsInProgress => _getNewProductsInProgress;
 
-  NewProductModel get newProductModel => _newProductModel;
+  ProductModel get newProductModel => _newProductModel;
 
   String get errorMessage => _errorMessage;
 
@@ -23,7 +23,7 @@ class NewProductController extends GetxController {
     _getNewProductsInProgress = false;
     if (response.isSuccess) {
       _newProductModel =
-          NewProductModel.fromJson(response.responseJson ?? {});
+          ProductModel.fromJson(response.responseJson ?? {});
       update();
       return true;
     } else {

@@ -1,4 +1,4 @@
-import 'package:craftybay_ecommerce_application/data/models/product_data.dart';
+import 'package:craftybay_ecommerce_application/data/models/product_model.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_card.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
@@ -16,7 +16,7 @@ class ProductListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
           title: remarkName ?? '',
           elevation: 1,

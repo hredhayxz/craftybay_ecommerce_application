@@ -1,17 +1,17 @@
 import 'package:craftybay_ecommerce_application/data/models/network_response.dart';
-import 'package:craftybay_ecommerce_application/data/models/popular_product_model.dart';
+import 'package:craftybay_ecommerce_application/data/models/product_model.dart';
 import 'package:craftybay_ecommerce_application/data/services/network_caller.dart';
 import 'package:craftybay_ecommerce_application/data/utility/urls.dart';
 import 'package:get/get.dart';
 
 class PopularProductController extends GetxController {
   bool _getPopularProductsInProgress = false;
-  PopularProductModel _popularProductModel = PopularProductModel();
+  ProductModel _popularProductModel = ProductModel();
   String _errorMessage = '';
 
   bool get getPopularProductsInProgress => _getPopularProductsInProgress;
 
-  PopularProductModel get popularProductModel => _popularProductModel;
+  ProductModel get popularProductModel => _popularProductModel;
 
   String get errorMessage => _errorMessage;
 
@@ -24,7 +24,7 @@ class PopularProductController extends GetxController {
     await NetworkCaller().getRequest(Urls.getPopularProducts);
     _getPopularProductsInProgress = false;
     if (response.isSuccess) {
-      _popularProductModel = PopularProductModel.fromJson(response.responseJson ?? {});
+      _popularProductModel = ProductModel.fromJson(response.responseJson ?? {});
       update();
       return true;
     } else {
