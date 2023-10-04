@@ -1,4 +1,5 @@
 import 'package:craftybay_ecommerce_application/presentation/state_holders/category_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/category_product_list_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/main_bottom_nav_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_list_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/category_card.dart';
@@ -24,36 +25,52 @@ class CategoryListScreen extends StatelessWidget {
             elevation: 1,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: GetBuilder<CategoryController>(builder: (categoryController) {
-            if (categoryController.getCategoriesInProgress) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return GridView.builder(
-              itemCount: categoryController.categoryModel.data?.length ?? 0,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    //Get.to(() => const ProductListScreen());
-                  },
-                  child: FittedBox(
-                    child: CategoryCard(
-                      categoryData:
-                          categoryController.categoryModel.data![index],
-                    ),
-                  ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await Get.find<CategoryController>().getCategories();
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child:
+                GetBuilder<CategoryController>(builder: (categoryController) {
+              if (categoryController.getCategoriesInProgress) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              },
-            );
-          }),
+              }
+              return GridView.builder(
+                itemCount: categoryController.categoryModel.data?.length ?? 0,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () async {
+                      await Get.find<CategoryProductListController>()
+                          .getProductsByCategory(index + 1);
+                      Get.to(() => ProductListScreen(
+                          productData:
+                          Get.find<CategoryProductListController>()
+                              .productModel
+                              .data ??
+                              [],
+                          remarkName: categoryController.categoryModel
+                              .data![index].categoryName ??
+                              ''));
+                    },
+                    child: FittedBox(
+                      child: CategoryCard(
+                        categoryData:
+                            categoryController.categoryModel.data![index],
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
+          ),
         ),
       ),
     );

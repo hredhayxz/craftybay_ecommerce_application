@@ -22,29 +22,35 @@ class ProductListScreen extends StatelessWidget {
           elevation: 1,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: GridView.builder(
-          itemCount: productData.length ?? 0,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-          ),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Get.to(() => ProductDetailsScreen());
-              },
-              child: FittedBox(
-                child: ProductCard(
-                  productData: productData[index],
+      body: productData.isEmpty
+          ? const Center(
+              child: Text('No data available!'),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: GridView.builder(
+                itemCount: productData.length ?? 0,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
                 ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetailsScreen(
+                            productId: productData[index].id!,
+                          ));
+                    },
+                    child: FittedBox(
+                      child: ProductCard(
+                        productData: productData[index],
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }

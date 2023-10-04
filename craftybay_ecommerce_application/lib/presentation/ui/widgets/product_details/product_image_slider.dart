@@ -3,7 +3,9 @@ import 'package:craftybay_ecommerce_application/application/utility/app_colors.d
 import 'package:flutter/material.dart';
 
 class ProductImageSlider extends StatelessWidget {
-  ProductImageSlider({super.key});
+  final List<String> imageList;
+
+  ProductImageSlider({super.key, required this.imageList});
 
   final ValueNotifier<int> _selectedSlider = ValueNotifier(0);
 
@@ -13,24 +15,26 @@ class ProductImageSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 320.0,
+              height: 300.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 5),
               viewportFraction: 1,
               onPageChanged: (int page, _) {
                 _selectedSlider.value = page;
               }),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: imageList.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(color: Colors.grey.shade400),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'image $i',
-                      style: const TextStyle(fontSize: 16.0),
-                    ));
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade400,
+                    image: DecorationImage(
+                      image: NetworkImage(i),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                );
               },
             );
           }).toList(),
@@ -43,7 +47,7 @@ class ProductImageSlider extends StatelessWidget {
             valueListenable: _selectedSlider,
             builder: (context, value, _) {
               List<Widget> dottedList = [];
-              for (int i = 0; i < 5; i++) {
+              for (int i = 0; i < imageList.length; i++) {
                 dottedList.add(Container(
                   width: 10,
                   height: 10,
@@ -51,7 +55,8 @@ class ProductImageSlider extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(10),
-                      color: value == i ? AppColors.primaryColor : Colors.white),
+                      color:
+                          value == i ? AppColors.primaryColor : Colors.white),
                 ));
               }
               return Row(

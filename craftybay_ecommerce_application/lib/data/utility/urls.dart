@@ -17,4 +17,10 @@ class Urls {
 
 // static String getProductsByRemarks(String remarks) =>
 //     '$_baseUrl/ListProductByRemark/$remarks';
+  static String getProductDetails(int productId) =>
+      '$_baseUrl/ProductDetailsById/$productId';
+  static const String addToCart = '$_baseUrl/CreateCartList';
+
+  static String getProductListByCategory(int categoryId) =>
+      '$_baseUrl/ListProductByCategory/$categoryId';
 }

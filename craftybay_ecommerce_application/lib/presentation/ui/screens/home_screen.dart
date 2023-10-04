@@ -1,4 +1,5 @@
 import 'package:craftybay_ecommerce_application/presentation/state_holders/category_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/category_product_list_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/home_slider_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/main_bottom_nav_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/new_product_controller.dart';
@@ -83,8 +84,18 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            //Get.to(() => const ProductListScreen());
+                          onTap: () async {
+                            await Get.find<CategoryProductListController>()
+                                .getProductsByCategory(index + 1);
+                            Get.to(() => ProductListScreen(
+                                productData:
+                                    Get.find<CategoryProductListController>()
+                                            .productModel
+                                            .data ??
+                                        [],
+                                remarkName: categoryController.categoryModel
+                                        .data![index].categoryName ??
+                                    ''));
                           },
                           child: CategoryCard(
                             categoryData:

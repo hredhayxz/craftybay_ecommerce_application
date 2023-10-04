@@ -4,25 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductRatingReviewWishList extends StatelessWidget {
+  final double productRating;
+
   const ProductRatingReviewWishList({
     super.key,
+    required this.productRating,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Wrap(
+        Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.star,
               size: 18,
               color: Colors.amber,
             ),
             Text(
-              '4.5',
-              style: TextStyle(
+              '${productRating ?? 0}',
+              style: const TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,

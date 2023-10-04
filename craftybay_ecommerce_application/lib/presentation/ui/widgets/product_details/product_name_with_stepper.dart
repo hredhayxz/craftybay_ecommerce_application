@@ -2,18 +2,21 @@ import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_
 import 'package:flutter/material.dart';
 
 class ProductNameWithStepper extends StatelessWidget {
+  final String productTitle;
+
   const ProductNameWithStepper({
     super.key,
+    required this.productTitle,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(
+        Expanded(
             child: Text(
-          'Addidas Shoe HK23454 - Black Edition',
-          style: TextStyle(
+          productTitle ?? '',
+          style: const TextStyle(
               fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: 0.5),
         )),
         CustomStepper(
