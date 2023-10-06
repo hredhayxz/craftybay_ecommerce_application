@@ -1,12 +1,28 @@
+import 'dart:developer';
+
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/cart_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/main_bottom_nav_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/cart_product_card.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Get.find<CartScreenController>().getCartProducts();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +35,31 @@ class CartScreen extends StatelessWidget {
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: CustomAppBar(
-            title: 'Cart', elevation: 1,
+            title: 'Cart',
+            elevation: 1,
           ),
         ),
         body: Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return const CartProductCard();
-                },
-              ),
-            ),
+            GetBuilder<CartScreenController>(builder: (cartScreenController) {
+              if (cartScreenController.getCartProductsInProgress) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Expanded(
+                child: ListView.builder(
+                  itemCount:
+                      cartScreenController.cartListModel.data!.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return CartProductCard(
+                      cartListData:
+                          cartScreenController.cartListModel.data![index],
+                    );
+                  },
+                ),
+              );
+            }),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               decoration: BoxDecoration(
@@ -43,7 +71,7 @@ class CartScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(

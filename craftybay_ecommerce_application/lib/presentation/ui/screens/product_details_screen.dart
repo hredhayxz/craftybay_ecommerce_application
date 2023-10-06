@@ -88,7 +88,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 productRating: productDetailsScreenController
                                         .productDetailsData.product!.star ??
                                     0),
-                            SelectProductColor(
+                            ProductColorPicker(
                                 colors: productDetailsScreenController
                                         .availableColors ??
                                     [],
@@ -105,7 +105,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             const SizedBox(
                               height: 16,
                             ),
-                            SelectProductSize(
+                            ProductSizePicker(
                                 sizes: productDetailsScreenController
                                         .availableSizes ??
                                     [],

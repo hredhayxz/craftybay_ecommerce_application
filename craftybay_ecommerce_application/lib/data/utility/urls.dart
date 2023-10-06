@@ -14,6 +14,7 @@ class Urls {
   static String getPopularProducts = '$_baseUrl/ListProductByRemark/popular';
   static String getSpecialProducts = '$_baseUrl/ListProductByRemark/special';
   static String getNewProducts = '$_baseUrl/ListProductByRemark/new';
+  static String getCartProducts = '$_baseUrl/CartList';
 
 // static String getProductsByRemarks(String remarks) =>
 //     '$_baseUrl/ListProductByRemark/$remarks';

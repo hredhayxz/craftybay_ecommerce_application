@@ -1,17 +1,17 @@
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 
-class SelectProductColor extends StatefulWidget {
-  const SelectProductColor({super.key, required this.colors, required this.onSelected, required this.initialSelected});
+class ProductColorPicker extends StatefulWidget {
+  const ProductColorPicker({super.key, required this.colors, required this.onSelected, required this.initialSelected});
   final List<Color> colors;
   final Function(int selectIndex) onSelected;
   final int initialSelected;
 
   @override
-  State<SelectProductColor> createState() => _SelectProductColorState();
+  State<ProductColorPicker> createState() => _ProductColorPickerState();
 }
 
-class _SelectProductColorState extends State<SelectProductColor> {
+class _ProductColorPickerState extends State<ProductColorPicker> {
   int _selectedColorIndex = 0;
 
   @override

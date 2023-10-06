@@ -1,10 +1,12 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_application/data/models/cart_list_model.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/custom_stepper.dart';
 import 'package:flutter/material.dart';
 
 class CartProductCard extends StatelessWidget {
+  final CartListData cartListData;
   const CartProductCard({
-    super.key,
+    super.key, required this.cartListData,
   });
 
   @override
@@ -21,8 +23,7 @@ class CartProductCard extends StatelessWidget {
             decoration: const BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                    image: NetworkImage(
-                        'https://static.nike.com/a/images/t_default/6c350499-1796-4393-a50f-11ee2ffc154e/custom-nike-dunk-low-by-you-shoes.png'))),
+                    image: NetworkImage('https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D&w=1000&q=80'))),
           ),
           const SizedBox(
             width: 8,
@@ -40,8 +41,8 @@ class CartProductCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Bata New shoe a#sdfasdf new product',
+                             const Text(
+                               'Nike vswyhetdjhjnfcj Yeah...',
                               style:
                                   TextStyle(fontSize: 18, color: Colors.black),
                             ),
@@ -49,12 +50,12 @@ class CartProductCard extends StatelessWidget {
                               height: 4,
                             ),
                             RichText(
-                              text: const TextSpan(
-                                style: TextStyle(
+                              text: TextSpan(
+                                style: const TextStyle(
                                     color: Colors.black54, fontSize: 12),
                                 children: [
-                                  TextSpan(text: 'Color: Black '),
-                                  TextSpan(text: 'Size: XL'),
+                                  TextSpan(text: 'Color: ${cartListData.color} '),
+                                  TextSpan(text: 'Size: ${cartListData.size}'),
                                 ],
                               ),
                             )

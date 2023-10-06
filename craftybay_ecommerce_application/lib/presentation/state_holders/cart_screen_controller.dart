@@ -19,7 +19,7 @@ class CartScreenController extends GetxController {
     _getCartProductsInProgress = true;
     update();
     final NetworkResponse response =
-    await NetworkCaller().getRequest(Urls.getCategories);
+        await NetworkCaller().getRequest(Urls.getCartProducts);
     _getCartProductsInProgress = false;
     if (response.isSuccess) {
       _cartListModel = CartListModel.fromJson(response.responseJson ?? {});
