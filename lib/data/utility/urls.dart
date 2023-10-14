@@ -15,6 +15,10 @@ class Urls {
   static String getSpecialProducts = '$_baseUrl/ListProductByRemark/special';
   static String getNewProducts = '$_baseUrl/ListProductByRemark/new';
   static String getCartProducts = '$_baseUrl/CartList';
+  static String createProfile = '$_baseUrl/CreateProfile';
+  static String readProfile = '$_baseUrl/ReadProfile';
+  static String productWishList = '$_baseUrl/ProductWishList';
+  static String createProductReview = '$_baseUrl/CreateProductReview';
 
 // static String getProductsByRemarks(String remarks) =>
 //     '$_baseUrl/ListProductByRemark/$remarks';
@@ -24,4 +28,13 @@ class Urls {
 
   static String getProductListByCategory(int categoryId) =>
       '$_baseUrl/ListProductByCategory/$categoryId';
+
+  static String deleteCartProduct(int productId) =>
+      '$_baseUrl/DeleteCartList/$productId';
+
+  static String setProductInWishList(int productId) =>
+      '$_baseUrl/CreateWishList/$productId';
+
+  static String getReviews(int productId) =>
+      '$_baseUrl/ListReviewByProduct/$productId';
 }

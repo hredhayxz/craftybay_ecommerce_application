@@ -41,6 +41,21 @@ dependencies:
   carousel_slider: ^4.2.1
   http: ^1.1.0
   shared_preferences: ^2.2.1
+  connectivity_plus: ^5.0.0
+  flutter_launcher_icons: ^0.13.1 #icon generate command: flutter pub run flutter_launcher_icons
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/logo_icon.png"
+  web:
+    generate: true
+    image_path: "assets/images/logo_icon.png"
+  macos:
+    generate: true
+    image_path: "assets/images/logo_icon.png"
+    icon_size: 48
 
 dev_dependencies:
   flutter_test:

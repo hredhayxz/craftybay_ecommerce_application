@@ -1,7 +1,10 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/data/models/cart_list_model.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/cart_screen_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/delete_cart_list_product_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/custom_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartProductCard extends StatelessWidget {
   final CartListData cartListData;
@@ -63,7 +66,9 @@ class CartProductCard extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await deleteCartProduct(cartListData.productId!);
+                          },
                           icon: const Icon(Icons.delete_outline))
                     ],
                   ),
@@ -98,5 +103,22 @@ class CartProductCard extends StatelessWidget {
         ],
       ),
     );
+  }
+  Future<void> deleteCartProduct(int productId) async {
+    final response = await Get.find<DeleteCartListProductController>().deleteCartProduct(productId);
+    if (response) {
+      Get.snackbar('Success', 'Product delete successful.',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+      Get.find<CartScreenController>().getCartProducts();
+    } else {
+      Get.snackbar('Failed', 'Product delete failed! Try again',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }

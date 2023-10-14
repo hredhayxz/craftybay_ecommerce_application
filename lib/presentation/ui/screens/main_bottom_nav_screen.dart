@@ -36,7 +36,6 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
       await Get.find<PopularProductController>().getPopularProducts();
       await Get.find<SpecialProductController>().getSpecialProducts();
       await Get.find<NewProductController>().getNewProducts();
-      await Get.find<CartScreenController>().getCartProducts();
     });
     super.initState();
   }

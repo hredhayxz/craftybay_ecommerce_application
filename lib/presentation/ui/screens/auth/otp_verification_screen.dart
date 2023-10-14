@@ -1,6 +1,8 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/email_verification_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/otp_verification_screen_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/read_profile_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/create_profile_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/craftyBay_logo.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({super.key, required this.email});
+
   final String email;
 
   @override
@@ -19,12 +22,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final EmailVerificationScreenController _emailVerificationScreenController =
       Get.find<EmailVerificationScreenController>();
   final OtpVerificationScreenController _otpVerificationScreenController =
-  Get.find<OtpVerificationScreenController>();
+      Get.find<OtpVerificationScreenController>();
   final TextEditingController _otpTEController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _otpVerificationScreenController.seconds = 120;
     _otpVerificationScreenController.startTimer();
   }
 
@@ -140,7 +144,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       TextButton(
                         onPressed: () {
                           if (_otpVerificationScreenController.seconds == 0) {
-                            _emailVerificationScreenController.verifyEmail(widget.email);
+                            _emailVerificationScreenController
+                                .verifyEmail(widget.email);
                             _otpVerificationScreenController.seconds = 120;
                             _otpVerificationScreenController.startTimer();
                           }
@@ -163,19 +168,30 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
       ),
     );
   }
+
   Future<void> verifyOtp(OtpVerificationScreenController controller) async {
     final response =
-    await controller.verifyOtp(widget.email, _otpTEController.text.trim());
+        await controller.verifyOtp(widget.email, _otpTEController.text.trim());
     if (response) {
-      Get.offAll(() => const MainBottomNavScreen());
+      Get.snackbar('Success', 'OTP verification successful.',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+      await Future.delayed(const Duration(seconds: 3)).then((value) async =>
+          await Get.find<ReadProfileController>().readProfileData());
+
+      Get.find<ReadProfileController>().readProfileModel.data?.length == 1
+          ? Get.offAll(() => const MainBottomNavScreen())
+          : Get.offAll(() => CreateProfileScreen());
     } else {
-      Get.snackbar(
-        'Failed',
-        'Otp verification failed! Try again',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        borderRadius: 10,
-      );
+      Get.snackbar('Failed', 'Otp verification failed! Try again',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+      _otpTEController.clear();
+      controller.timer.cancel();
     }
   }
 }

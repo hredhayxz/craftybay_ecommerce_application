@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:craftybay_ecommerce_application/application/state_holder_binder.dart';
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/splash_screen.dart';
@@ -6,6 +9,7 @@ import 'package:get/get.dart';
 
 class CraftyBay extends StatefulWidget {
   static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
+
   const CraftyBay({Key? key}) : super(key: key);
 
   @override
@@ -13,6 +17,41 @@ class CraftyBay extends StatefulWidget {
 }
 
 class _CraftyBayState extends State<CraftyBay> {
+  late final StreamSubscription _connectivityStatusStream;
+
+  @override
+  void initState() {
+    checkInitialInternetConnection();
+    checkInternetConnectivityStatus();
+    super.initState();
+  }
+
+  void checkInitialInternetConnection() async {
+    final result = await Connectivity().checkConnectivity();
+    handleConnectivityStates(result);
+  }
+
+  void checkInternetConnectivityStatus() {
+    _connectivityStatusStream =
+        Connectivity().onConnectivityChanged.listen((status) {
+      handleConnectivityStates(status);
+    });
+  }
+
+  void handleConnectivityStates(ConnectivityResult status) {
+    if (status != ConnectivityResult.mobile &&
+        status != ConnectivityResult.wifi) {
+      Get.defaultDialog(
+        title: "No Internet",
+        middleText: "Please check your internet connection.",
+        barrierDismissible: false,
+        titleStyle: const TextStyle(color: Colors.red),
+      );
+    } else {
+      Get.back();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

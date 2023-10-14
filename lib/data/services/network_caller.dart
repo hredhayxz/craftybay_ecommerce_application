@@ -9,7 +9,7 @@ import 'package:http/http.dart';
 
 class NetworkCaller {
   /// get request method
-  Future<NetworkResponse> getRequest(String url) async {
+  Future<NetworkResponse> getRequest(String url, {bool isLogin = false}) async {
     try {
       Response response = await get(Uri.parse(url),
           headers: {'token': AuthController.accessToken.toString()});
@@ -19,7 +19,9 @@ class NetworkCaller {
         return NetworkResponse(
             true, response.statusCode, jsonDecode(response.body));
       } else if (response.statusCode == 401) {
-        gotoLogin();
+        if (isLogin) {
+          gotoLogin();
+        }
       } else {
         return NetworkResponse(false, response.statusCode, null);
       }

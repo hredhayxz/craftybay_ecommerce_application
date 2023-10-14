@@ -85,9 +85,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   '',
                             ),
                             ProductRatingReviewWishList(
-                                productRating: productDetailsScreenController
-                                        .productDetailsData.product!.star ??
-                                    0),
+                                productDetailsData:
+                                    productDetailsScreenController
+                                        .productDetailsData),
                             ProductColorPicker(
                                 colors: productDetailsScreenController
                                         .availableColors ??
@@ -136,7 +136,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               BottomNavCard(
-                  productId: widget.productId,
+                  productDetailsData:
+                      productDetailsScreenController.productDetailsData,
                   productColor: productDetailsScreenController
                       .availableColors[_selectedColorIndex]
                       .toString(),

@@ -6,10 +6,12 @@ import 'package:craftybay_ecommerce_application/data/utility/urls.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/auth_controller.dart';
 import 'package:get/get.dart';
 
-class OtpVerificationScreenController extends GetxController
-{
-  int seconds = 120;
+class OtpVerificationScreenController extends GetxController {
+  late int seconds;
   late Timer _timer;
+
+  Timer get timer => _timer;
+
   void startTimer() {
     const oneSecond = Duration(seconds: 1);
     _timer = Timer.periodic(oneSecond, (timer) {
@@ -29,7 +31,7 @@ class OtpVerificationScreenController extends GetxController
     _otpVerificationInProgress = true;
     update();
     final NetworkResponse response =
-    await NetworkCaller().getRequest(Urls.verifyOtp(email, otp));
+        await NetworkCaller().getRequest(Urls.verifyOtp(email, otp));
     _otpVerificationInProgress = false;
     update();
     if (response.isSuccess) {

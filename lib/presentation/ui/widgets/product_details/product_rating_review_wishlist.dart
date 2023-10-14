@@ -1,15 +1,15 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_application/data/models/product_details_model.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/create_wishlist_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductRatingReviewWishList extends StatelessWidget {
-  final double productRating;
+  final ProductDetailsData productDetailsData;
 
-  const ProductRatingReviewWishList({
-    super.key,
-    required this.productRating,
-  });
+  const ProductRatingReviewWishList(
+      {super.key, required this.productDetailsData});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ProductRatingReviewWishList extends StatelessWidget {
               color: Colors.amber,
             ),
             Text(
-              '${productRating ?? 0}',
+              '${productDetailsData.product?.star ?? 0}',
               style: const TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontSize: 15,
@@ -35,7 +35,7 @@ class ProductRatingReviewWishList extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Get.to(() => const ProductReviewScreen());
+            Get.to(() => ProductReviewScreen(productId: productDetailsData.productId!,));
           },
           child: Text(
             'Reviews',
@@ -45,18 +45,45 @@ class ProductRatingReviewWishList extends StatelessWidget {
                 fontWeight: FontWeight.w500),
           ),
         ),
-        Card(
-          color: AppColors.primaryColor,
-          child: const Padding(
-            padding: EdgeInsets.all(2.0),
-            child: Icon(
-              Icons.favorite_border,
-              size: 16,
-              color: Colors.white,
+        GetBuilder<CreateWishListController>(
+            builder: (createWishListController) {
+          return Card(
+            color: AppColors.primaryColor,
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: InkWell(
+                onTap: () async {
+                  await setThisProductInWishlist(createWishListController);
+                },
+                child: const Icon(
+                  Icons.favorite_border,
+                  size: 16,
+                  color: Colors.white,
+                ),
+              ),
             ),
-          ),
-        )
+          );
+        })
       ],
     );
+  }
+
+  Future<void> setThisProductInWishlist(
+      CreateWishListController createWishListController) async {
+    final response = await createWishListController
+        .setProductInWishList(productDetailsData.productId!);
+    if (response) {
+      Get.snackbar('Success', 'Add wishlist successfully.',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+    } else {
+      Get.snackbar('Failed', 'Add wishlist failed! Try again',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }

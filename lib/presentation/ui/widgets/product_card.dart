@@ -1,6 +1,8 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/data/models/product_model.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/create_wishlist_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductData productData;
@@ -75,17 +77,26 @@ class ProductCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Card(
-                        color: AppColors.primaryColor,
-                        child: const Padding(
-                          padding: EdgeInsets.all(2.0),
-                          child: Icon(
-                            Icons.favorite_border,
-                            size: 12,
-                            color: Colors.white,
+                      GetBuilder<CreateWishListController>(
+                          builder: (createWishListController) {
+                        return Card(
+                          color: AppColors.primaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: () async {
+                                await setThisProductInWishlist(
+                                    createWishListController);
+                              },
+                              child: const Icon(
+                                Icons.favorite_border,
+                                size: 12,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      )
+                        );
+                      })
                     ],
                   ),
                 ],
@@ -95,5 +106,24 @@ class ProductCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> setThisProductInWishlist(
+      CreateWishListController createWishListController) async {
+    final response =
+        await createWishListController.setProductInWishList(productData.id!);
+    if (response) {
+      Get.snackbar('Success', 'Add wishlist successfully.',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+    } else {
+      Get.snackbar('Failed', 'Add wishlist failed! Try again',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }
