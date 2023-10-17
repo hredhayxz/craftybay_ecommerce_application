@@ -1,4 +1,8 @@
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/auth_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/read_profile_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/theme_manager_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/email_verification_screen.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/update_profile_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/utility/assets_path.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/circular_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +54,14 @@ class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
         const Spacer(),
         CircularIconButton(
           icon: Icons.person,
-          onTap: () {},
+          onTap: () async {
+            await Get.find<ReadProfileController>().readProfileData();
+            if (AuthController.isLoggedIn) {
+              Get.to(() => const UpdateProfileScreen());
+            } else {
+              Get.offAll(() => EmailVerificationScreen());
+            }
+          },
         ),
         const SizedBox(
           width: 8,
@@ -67,13 +78,29 @@ class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
           onTap: () {},
         ),
         const SizedBox(
-          width: 12,
+          width: 8,
         ),
         CircularIconButton(
           icon: currentThemeMode == ThemeMode.light
               ? Icons.sunny
               : Icons.nightlight,
           onTap: _toggleTheme,
+        ),
+        const SizedBox(
+          width: 12,
+        ),
+        CircularIconButton(
+          icon: Icons.logout,
+          onTap: () async {
+            await AuthController.clear();
+            await AuthController.getAccessToken();
+            Get.snackbar(
+                'Success', 'Logout successful.',
+                backgroundColor: Colors.green,
+                colorText: Colors.white,
+                borderRadius: 10,
+                snackPosition: SnackPosition.BOTTOM);
+          },
         ),
       ],
     );
