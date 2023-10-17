@@ -13,6 +13,33 @@ class HomeScreenAppbarTitle extends StatefulWidget {
 }
 
 class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
+  ThemeMode? currentThemeMode;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThemeMode();
+  }
+
+  Future<void> _loadThemeMode() async {
+    final ThemeMode themeMode = await ThemeManager.getThemeMode();
+    setState(() {
+      currentThemeMode = themeMode;
+    });
+  }
+
+  void _toggleTheme() async {
+    if (currentThemeMode == ThemeMode.light) {
+      currentThemeMode = ThemeMode.dark;
+      Get.changeThemeMode(ThemeMode.dark);
+    } else {
+      currentThemeMode = ThemeMode.light;
+      Get.changeThemeMode(ThemeMode.light);
+    }
+    await ThemeManager.setThemeMode(currentThemeMode!);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -43,17 +70,10 @@ class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
           width: 12,
         ),
         CircularIconButton(
-          icon: Get.isDarkMode ? Icons.nightlight : Icons.sunny,
-          onTap: () {
-            if (Get.isDarkMode) {
-              Get.changeThemeMode(ThemeMode.light);
-              ThemeManager.setThemeMode(ThemeMode.light);
-            } else {
-              Get.changeThemeMode(ThemeMode.dark);
-              ThemeManager.setThemeMode(ThemeMode.dark);
-            }
-            setState(() {});
-          },
+          icon: currentThemeMode == ThemeMode.light
+              ? Icons.sunny
+              : Icons.nightlight,
+          onTap: _toggleTheme,
         ),
       ],
     );

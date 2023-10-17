@@ -60,123 +60,149 @@ class HomeScreen extends StatelessWidget {
                   sliders: homeSliderController.sliderModel.data ?? [],
                 );
               }),
-              SectionHeader(
-                title: 'All Categories',
-                onTap: () {
-                  Get.find<MainBottomNavScreenController>().changeScreen(1);
-                },
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              SizedBox(
-                height: 90,
-                child: GetBuilder<CategoryController>(
-                    builder: (categoryController) {
-                  if (categoryController.getCategoriesInProgress) {
-                    return const Center(
+              GetBuilder<CategoryController>(builder: (categoryController) {
+                if (categoryController.getCategoriesInProgress) {
+                  return const SizedBox(
+                    height: 90,
+                    child: Center(
                       child: CircularProgressIndicator(),
-                    );
-                  }
-                  return ListView.builder(
-                      itemCount:
-                          categoryController.categoryModel.data?.length ?? 0,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(() => CategoryProductListScreen(
-                                categoryId: index + 1,
-                                remarkName: categoryController.categoryModel
-                                        .data![index].categoryName ??
-                                    ''));
-                          },
-                          child: CategoryCard(
-                            categoryData:
-                                categoryController.categoryModel.data![index],
-                          ),
-                        );
-                      });
-                }),
-              ),
+                    ),
+                  );
+                }
+                return Column(
+                  children: [
+                    SectionHeader(
+                      title: 'All Categories',
+                      onTap: () {
+                        Get.find<MainBottomNavScreenController>()
+                            .changeScreen(1);
+                      },
+                    ),
+                    SizedBox(
+                      height: 90,
+                      child: ListView.builder(
+                          itemCount:
+                              categoryController.categoryModel.data?.length ??
+                                  0,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Get.to(() => CategoryProductListScreen(
+                                    categoryId: index + 1,
+                                    remarkName: categoryController.categoryModel
+                                            .data![index].categoryName ??
+                                        ''));
+                              },
+                              child: CategoryCard(
+                                categoryData: categoryController
+                                    .categoryModel.data![index],
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                );
+              }),
               const SizedBox(
                 height: 16,
-              ),
-              SectionHeader(
-                title: 'Popular',
-                onTap: () {
-                  Get.to(() => ProductListScreen(
-                        productData: Get.find<PopularProductController>()
-                                .popularProductModel
-                                .data ??
-                            [],
-                        remarkName: 'Popular',
-                      ));
-                },
               ),
               GetBuilder<PopularProductController>(
                   builder: (popularProductController) {
                 if (popularProductController.getPopularProductsInProgress) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const SizedBox(
+                    height: 165,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
-                return ProductListView(
-                    productData:
-                        popularProductController.popularProductModel.data ??
-                            []);
+                return Column(
+                  children: [
+                    SectionHeader(
+                      title: 'Popular',
+                      onTap: () {
+                        Get.to(() => ProductListScreen(
+                              productData: Get.find<PopularProductController>()
+                                      .popularProductModel
+                                      .data ??
+                                  [],
+                              remarkName: 'Popular',
+                            ));
+                      },
+                    ),
+                    ProductListView(
+                        productData:
+                            popularProductController.popularProductModel.data ??
+                                []),
+                  ],
+                );
               }),
               const SizedBox(
                 height: 16,
-              ),
-              SectionHeader(
-                title: 'Special',
-                onTap: () {
-                  Get.to(() => ProductListScreen(
-                        productData: Get.find<SpecialProductController>()
-                                .specialProductModel
-                                .data ??
-                            [],
-                        remarkName: 'Special',
-                      ));
-                },
               ),
               GetBuilder<SpecialProductController>(
                   builder: (specialProductController) {
                 if (specialProductController.getSpecialProductsInProgress) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const SizedBox(
+                    height: 165,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
-                return ProductListView(
-                    productData:
-                        specialProductController.specialProductModel.data ??
-                            []);
+                return Column(
+                  children: [
+                    SectionHeader(
+                      title: 'Special',
+                      onTap: () {
+                        Get.to(() => ProductListScreen(
+                              productData: Get.find<SpecialProductController>()
+                                      .specialProductModel
+                                      .data ??
+                                  [],
+                              remarkName: 'Special',
+                            ));
+                      },
+                    ),
+                    ProductListView(
+                        productData:
+                            specialProductController.specialProductModel.data ??
+                                []),
+                  ],
+                );
               }),
               const SizedBox(
                 height: 16,
               ),
-              SectionHeader(
-                title: 'New',
-                onTap: () {
-                  Get.to(() => ProductListScreen(
-                        productData: Get.find<NewProductController>()
-                                .newProductModel
-                                .data ??
-                            [],
-                        remarkName: 'New',
-                      ));
-                },
-              ),
               GetBuilder<NewProductController>(builder: (newProductController) {
                 if (newProductController.getNewProductsInProgress) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const SizedBox(
+                    height: 165,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
-                return ProductListView(
-                    productData:
-                        newProductController.newProductModel.data ?? []);
+                return Column(
+                  children: [
+                    SectionHeader(
+                      title: 'New',
+                      onTap: () {
+                        Get.to(() => ProductListScreen(
+                              productData: Get.find<NewProductController>()
+                                      .newProductModel
+                                      .data ??
+                                  [],
+                              remarkName: 'New',
+                            ));
+                      },
+                    ),
+                    ProductListView(
+                        productData:
+                            newProductController.newProductModel.data ?? []),
+                  ],
+                );
               }),
             ],
           ),
