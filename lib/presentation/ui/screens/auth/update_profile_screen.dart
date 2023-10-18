@@ -2,6 +2,7 @@ import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/read_profile_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/craftyBay_logo.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,6 +51,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: CustomAppBar(
+          title: 'Update Profile',
+          elevation: 1,
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
