@@ -111,4 +111,10 @@ class _CraftyBayState extends State<CraftyBay> {
           )),
     );
   }
+
+  @override
+  void dispose() {
+    _connectivityStatusStream.cancel();
+    super.dispose();
+  }
 }
