@@ -26,9 +26,10 @@ class _CraftyBayState extends State<CraftyBay> {
     checkInitialInternetConnection();
     checkInternetConnectivityStatus();
     ThemeManager.getThemeMode().then((themeMode) {
-      setState(() {
-        _themeMode = themeMode;
-      });
+      if (themeMode == ThemeMode.system) {
+        ThemeManager.setThemeMode(ThemeMode.light);
+      }
+      _themeMode = themeMode;
     });
     super.initState();
   }
@@ -66,7 +67,7 @@ class _CraftyBayState extends State<CraftyBay> {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       initialBinding: StateHolderBinder(),
-      themeMode: _themeMode ,
+      themeMode: _themeMode,
       theme: ThemeData(
           primarySwatch:
               MaterialColor(AppColors.primaryColor.value, AppColors().color),
