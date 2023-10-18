@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class HomeSlider extends StatelessWidget {
   HomeSlider({super.key, required this.sliders});
+
   final List<SliderData> sliders;
 
   final ValueNotifier<int> _selectedSlider = ValueNotifier(0);
@@ -16,8 +17,8 @@ class HomeSlider extends StatelessWidget {
         CarouselSlider(
           options: CarouselOptions(
               height: 180.0,
-              autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 3),
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 5),
               viewportFraction: 1,
               onPageChanged: (int page, _) {
                 _selectedSlider.value = page;
@@ -26,26 +27,54 @@ class HomeSlider extends StatelessWidget {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(color: Colors.grey.shade400),
-                    alignment: Alignment.center,
-                    child: Stack(
-                      children: [
-                        Image.network(
-                          sliderData.image ?? '',
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          child: Text(
-                            sliderData.title ?? '', style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(8)),
+                  alignment: Alignment.center,
+                  child: Row(
+                    children: [
+                      Image.network(
+                        sliderData.image ?? '',
+                        scale: 1.2,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            sliderData.title ?? '',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
                           ),
+                          SizedBox(
+                            height: 35,
+                            width: 120,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                backgroundColor: Colors.white,
+                              ),
+                              onPressed: () {},
+                              child: Text(
+                                "Buy Now",
+                                style: TextStyle(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 14),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ));
+                        ],
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           }).toList(),
