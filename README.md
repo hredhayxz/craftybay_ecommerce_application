@@ -1,8 +1,63 @@
-# craftybay_ecommerce_application
 
+# CraftyBay Ecommerce Application
+A complete ecommerce application
 
+## CraftyBay UI
 ![all (1)](https://github.com/hredhayxz/craftybay_ecommerce_application/assets/60058949/88d4de63-ec05-4cae-a817-c17c440321ef)
 
+## Getting Started
+
+### Prerequisites
+
+Ensure Flutter is installed on your machine. For installation instructions, refer to the official [Flutter website](https://flutter.dev/docs/get-started/install).
+
+### Installation
+
+Follow these steps to run the News Read Application:
+
+1. Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/hredhayxz/craftybay_ecommerce_application.git
+```
+
+2. Navigate to the project folder:
+
+```bash
+cd craftybay_ecommerce_application
+```
+
+3. Install dependencies:
+
+```bash
+flutter pub get
+```
+
+### How to Run
+
+Connect your device or emulator and run the app using the following command:
+
+```bash
+flutter run
+```
+
+## Used Packages
+
+CraftyBay integrates the following packages to enhance functionality:
+- `http: ^1.1.0`: Perform HTTP requests and interact with APIs.
+- `flutter_svg: ^2.0.7`: TO use svg format picture in project.
+- `cached_network_image: ^3.3.0`: For network image caching and showing.
+- `get: ^4.6.5`: Flutter GetX for state management.
+- `pin_code_fields: ^8.0.1`: For design fin verification screen.
+- `connectivity_plus: ^4.0.2`: Use this for checking network connectivity.
+- `flutter_launcher_icons: ^0.13.1`: Simplify the generation of launcher icons on various platforms.
+- `carousel_slider: ^4.2.1`: Use it for show image as slider.
+- `shared_preferences: ^2.2.1`: Use this for store user token and current theme mode.
+
+
+## Project Directory Structure
+
+The CraftyBay directory structure is organized as follows:
 
 ```
 
@@ -105,7 +160,17 @@ craftybay_ecommerce_application/
 
 ```
 
+## Contributors
 
-Project structure
+- [Md Alhaz Mondal Hredhay](https://github.com/hredhayxz)
 
-. └── ecommerce/ ├── data └── presentation/ ├── state_holders └── ui/ ├── screens ├── widgets └── utils
+## Special Thanks
+
+### A heartfelt thanks to my mentors:
+
+[Rabbil Hasan](https://github.com/rupomsoft) for his enlightening prerecorded classes and [Rafat Jamader Meraz](https://github.com/RafatMeraz) or teaching me how to make UI like this and the API integration seamless.
+
+### A heartfelt thanks to my classmate:
+
+[Moniruzzaman](https://github.com/moniruzzaman76) & [Mujahedul Islam](https://github.com/muj-i) to share their knowledges with me & help me complete the project.
+
