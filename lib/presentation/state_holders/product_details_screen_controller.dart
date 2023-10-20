@@ -11,8 +11,7 @@ class ProductDetailsScreenController extends GetxController {
   bool _getProductDetailsInProgress = false;
   ProductDetailsData _productDetailsData = ProductDetailsData();
   String _errorMessage = '';
-  final List<String> _colorCodes = [];
-  final List<Color> _colors = [];
+  final List<String> _availableColors = [];
   List<String> _availableSizes = [];
 
   bool get getProductDetailsInProgress => _getProductDetailsInProgress;
@@ -21,7 +20,7 @@ class ProductDetailsScreenController extends GetxController {
 
   String get errorMessage => _errorMessage;
 
-  List<Color> get availableColors => _colors;
+  List<String> get availableColors => _availableColors;
 
   List<String> get availableSizes => _availableSizes;
 
@@ -40,12 +39,8 @@ class ProductDetailsScreenController extends GetxController {
           (ProductDetailsModel.fromJson(response.responseJson ?? {}))
               .data!
               .first;
-      _colorCodes.clear();
-      _colors.clear();
-      _storeColorCodes(_productDetailsData.color ?? '');
-      _convertColorCode();
+      _convertStringToColor(_productDetailsData.color ?? '');
       _convertStringToSizes(_productDetailsData.size ?? '');
-      log(_colors.toString());
       update();
       return true;
     } else {
@@ -55,20 +50,8 @@ class ProductDetailsScreenController extends GetxController {
     }
   }
 
-  void _storeColorCodes(String color) {
-    final List<String> splittedColors = color.split(',');
-    for (String c in splittedColors) {
-      if (c.isNotEmpty) {
-        _colorCodes.add(c);
-      }
-    }
-  }
-
-  void _convertColorCode() {
-    for (var code in _colorCodes) {
-      final color = Color(int.parse(code.replaceAll('#', '0xFF')));
-      _colors.add(color);
-    }
+  void _convertStringToColor(String color) {
+    _availableSizes = color.split(',');
   }
 
   void _convertStringToSizes(String sizes) {

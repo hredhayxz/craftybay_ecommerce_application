@@ -1,9 +1,15 @@
+import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 
 class ProductColorPicker extends StatefulWidget {
-  const ProductColorPicker({super.key, required this.colors, required this.onSelected, required this.initialSelected});
-  final List<Color> colors;
+  const ProductColorPicker(
+      {super.key,
+      required this.colors,
+      required this.onSelected,
+      required this.initialSelected});
+
+  final List<String> colors;
   final Function(int selectIndex) onSelected;
   final int initialSelected;
 
@@ -35,7 +41,7 @@ class _ProductColorPickerState extends State<ProductColorPicker> {
             itemCount: widget.colors.length,
             itemBuilder: (context, index) {
               return InkWell(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(4),
                 onTap: () {
                   _selectedColorIndex = index;
                   widget.onSelected(index);
@@ -43,15 +49,16 @@ class _ProductColorPickerState extends State<ProductColorPicker> {
                     setState(() {});
                   }
                 },
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: widget.colors[index],
-                  child: _selectedColorIndex == index
-                      ? const Icon(
-                          Icons.done,
-                          color: Colors.white,
-                        )
-                      : null,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(4),
+                      color: _selectedColorIndex == index
+                          ? AppColors.primaryColor
+                          : null),
+                  alignment: Alignment.center,
+                  child: Text(widget.colors[index]),
                 ),
               );
             },

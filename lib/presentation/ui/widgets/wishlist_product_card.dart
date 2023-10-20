@@ -28,16 +28,17 @@ class WishListProductCard extends StatelessWidget {
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   ),
-                  image: const DecorationImage(image: NetworkImage('https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D&w=1000&q=80'))),
+                  image: DecorationImage(
+                      image: NetworkImage(productData.product?.image ?? ''))),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  const Text(
-                    'API Problem',
+                  Text(
+                    productData.product?.title ?? '',
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -50,23 +51,23 @@ class WishListProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$0',
+                        '\$${productData.product?.price ?? 0}',
                         style: TextStyle(
                             fontSize: 13,
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w500),
                       ),
-                      const Wrap(
+                      Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             size: 15,
                             color: Colors.amber,
                           ),
                           Text(
-                            '0',
-                            style: TextStyle(
+                            '${productData.product?.star ?? 0}',
+                            style: const TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,

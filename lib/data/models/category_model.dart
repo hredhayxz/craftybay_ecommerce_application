@@ -33,10 +33,10 @@ class CategoryData {
 
   CategoryData(
       {this.id,
-        this.categoryName,
-        this.categoryImg,
-        this.createdAt,
-        this.updatedAt});
+      this.categoryName,
+      this.categoryImg,
+      this.createdAt,
+      this.updatedAt});
 
   CategoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -52,6 +52,13 @@ class HomeSlider extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
+                          Text(
+                            sliderData.price ?? '',
+                            style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
                           SizedBox(
                             height: 35,
                             width: 120,

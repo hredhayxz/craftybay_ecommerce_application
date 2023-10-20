@@ -81,7 +81,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             ProductNameWithStepper(
                               productTitle: productDetailsScreenController
-                                      .productDetailsData.product!.title ??
+                                      .productDetailsData.product?.title ??
                                   '',
                             ),
                             ProductRatingReviewWishList(
