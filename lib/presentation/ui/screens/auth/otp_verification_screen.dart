@@ -1,7 +1,9 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/email_verification_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/otp_verification_screen_controller.dart';
-import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/read_profile_screen.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/read_profile_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/create_profile_screen.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/craftyBay_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,7 +59,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 const SizedBox(
                   height: 4,
                 ),
-                Text('A 4 digit OTP Code has been Sent',
+                Text('A 6 digit OTP Code has been Sent',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -67,7 +69,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 ),
                 PinCodeTextField(
                   controller: _otpTEController,
-                  length: 4,
+                  length: 6,
                   obscureText: false,
                   animationType: AnimationType.fade,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -176,7 +178,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           colorText: Colors.white,
           borderRadius: 10,
           snackPosition: SnackPosition.BOTTOM);
-      Get.offAll(() => const ReadProfileScreen());
+      await Get.find<ReadProfileController>().readProfileData();
+
+      Get.find<ReadProfileController>().readProfileModel.data == null
+          ? Get.offAll(() => CreateProfileScreen())
+          : Get.offAll(() => const MainBottomNavScreen());
     } else {
       Get.snackbar('Failed', 'Otp verification failed! Try again',
           backgroundColor: Colors.red,

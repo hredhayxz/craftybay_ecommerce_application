@@ -11,17 +11,41 @@ class CreateProfileScreenController extends GetxController {
 
   String get message => _message;
 
-  Future<bool> createProfile(String firstName, String lastName, String mobile,
-      String city, String shippingAddress) async {
+  Future<bool> createProfile(
+      String cusName,
+      String cusAdd,
+      String cusCity,
+      String cusState,
+      String cusPostcode,
+      String cusCountry,
+      String cusPhone,
+      String cusFax,
+      String shipName,
+      String shipAdd,
+      String shipCity,
+      String shipState,
+      String shipPostcode,
+      String shipCountry,
+      String shipPhone) async {
     _completeProfileInProgress = true;
     update();
     final NetworkResponse response =
         await NetworkCaller().postRequest(Urls.createProfile, {
-      "firstName": firstName,
-      "lastName": lastName,
-      "mobile": mobile,
-      "city": city,
-      "shippingAddress": shippingAddress
+      "cus_name": cusName,
+      "cus_add": cusAdd,
+      "cus_city": cusCity,
+      "cus_state": cusState,
+      "cus_postcode": cusPostcode,
+      "cus_country": cusCountry,
+      "cus_phone": cusPhone,
+      "cus_fax": cusFax,
+      "ship_name": shipName,
+      "ship_add": shipAdd,
+      "ship_city": shipCity,
+      "ship_state": shipState,
+      "ship_postcode": shipPostcode,
+      "ship_country": shipCountry,
+      "ship_phone": shipPhone
     });
     _completeProfileInProgress = false;
     update();
