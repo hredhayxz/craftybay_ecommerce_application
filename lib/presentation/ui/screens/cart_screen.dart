@@ -2,6 +2,7 @@ import 'package:craftybay_ecommerce_application/application/utility/app_colors.d
 import 'package:craftybay_ecommerce_application/presentation/state_holders/cart_screen_con'
     'troller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/main_bottom_nav_screen_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/payment/select_payment_method_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/cart_product_card.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
@@ -109,7 +110,9 @@ class _CartScreenState extends State<CartScreen> {
                     SizedBox(
                       width: 120,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => const SelectPaymentMethodScreen());
+                        },
                         child: const Text('Checkout'),
                       ),
                     )
