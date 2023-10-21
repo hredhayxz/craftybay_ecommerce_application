@@ -1,17 +1,14 @@
-import 'dart:developer';
-
 import 'package:craftybay_ecommerce_application/data/models/network_response.dart';
 import 'package:craftybay_ecommerce_application/data/models/product_details_model.dart';
 import 'package:craftybay_ecommerce_application/data/services/network_caller.dart';
 import 'package:craftybay_ecommerce_application/data/utility/urls.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductDetailsScreenController extends GetxController {
   bool _getProductDetailsInProgress = false;
   ProductDetailsData _productDetailsData = ProductDetailsData();
   String _errorMessage = '';
-  final List<String> _availableColors = [];
+  List<String> _availableColors = [];
   List<String> _availableSizes = [];
 
   bool get getProductDetailsInProgress => _getProductDetailsInProgress;
@@ -24,15 +21,11 @@ class ProductDetailsScreenController extends GetxController {
 
   List<String> get availableSizes => _availableSizes;
 
-  void updateAllState() {
-    update();
-  }
-
-  Future<bool> getProductDetails(int id) async {
+  Future<bool> getProductDetails(int productId) async {
     _getProductDetailsInProgress = true;
     update();
     final NetworkResponse response =
-        await NetworkCaller().getRequest(Urls.getProductDetails(id));
+        await NetworkCaller().getRequest(Urls.getProductDetails(productId));
     _getProductDetailsInProgress = false;
     if (response.isSuccess) {
       _productDetailsData =
@@ -50,8 +43,8 @@ class ProductDetailsScreenController extends GetxController {
     }
   }
 
-  void _convertStringToColor(String color) {
-    _availableSizes = color.split(',');
+  void _convertStringToColor(String colors) {
+    _availableColors = colors.split(',');
   }
 
   void _convertStringToSizes(String sizes) {

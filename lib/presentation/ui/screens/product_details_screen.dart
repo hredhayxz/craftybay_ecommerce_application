@@ -25,7 +25,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<ProductDetailsScreenController>()
+    callData();
+  }
+
+  Future<void> callData() async {
+    await Get.find<ProductDetailsScreenController>()
         .getProductDetails(widget.productId);
   }
 
