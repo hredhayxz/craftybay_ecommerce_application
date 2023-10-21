@@ -1,23 +1,14 @@
-import 'dart:developer';
-
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
-import 'package:craftybay_ecommerce_application/data/models/product_details_model.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/add_to_cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BottomNavCard extends StatelessWidget {
   const BottomNavCard(
-      {super.key,
-      required this.productDetailsData,
-      required this.productColor,
-      required this.productSize,
-      required this.productQuantity});
+      {super.key, required this.productPrice, required this.onPressed});
 
-  final ProductDetailsData productDetailsData;
-  final String productColor;
-  final String productSize;
-  final int productQuantity;
+  final String productPrice;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +37,7 @@ class BottomNavCard extends StatelessWidget {
                 height: 4,
               ),
               Text(
-                productDetailsData.product?.price.toString() ?? '0',
+                '\$$productPrice',
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
@@ -64,27 +55,7 @@ class BottomNavCard extends StatelessWidget {
                 );
               }
               return ElevatedButton(
-                onPressed: () {
-                  addToCartController
-                      .addToCart(productDetailsData.productId ?? 0,
-                          productColor, productSize, productQuantity)
-                      .then((result) {
-                    log(productSize);
-                    if (result) {
-                      Get.snackbar('Success', 'Add to cart successful.',
-                          backgroundColor: Colors.green,
-                          colorText: Colors.white,
-                          borderRadius: 10,
-                          snackPosition: SnackPosition.BOTTOM);
-                    } else {
-                      Get.snackbar('Failed', 'Add to cart failed! Try again.',
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                          borderRadius: 10,
-                          snackPosition: SnackPosition.BOTTOM);
-                    }
-                  });
-                },
+                onPressed: onPressed,
                 child: const Text('Add to cart'),
               );
             }),

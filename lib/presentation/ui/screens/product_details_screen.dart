@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:craftybay_ecommerce_application/presentation/state_holders/add_to_cart_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/product_details_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/custom_stepper.dart';
@@ -119,7 +120,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   _selectedColorIndex = selectedColor;
                                   log(_selectedColorIndex.toString());
                                   //productDetailsScreenController.updateAllState;
-                                  setState(() {});
+                                  //setState(() {});
                                   log(productDetailsScreenController
                                       .availableColors[_selectedColorIndex]
                                       .toString());
@@ -136,7 +137,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   _selectedSizeIndex = selectedSize;
                                   log(_selectedSizeIndex.toString());
                                   //productDetailsScreenController.updateAllState;
-                                  setState(() {});
+                                  //setState(() {});
                                   log(productDetailsScreenController
                                       .availableSizes[_selectedSizeIndex]);
                                 },
@@ -159,15 +160,36 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               BottomNavCard(
-                productDetailsData:
-                    productDetailsScreenController.productDetailsData,
-                productColor: productDetailsScreenController
-                    .availableColors[_selectedColorIndex]
+                productPrice: productDetailsScreenController
+                    .productDetailsData.product!.price
                     .toString(),
-                productSize: productDetailsScreenController
-                        .availableSizes[_selectedSizeIndex] ??
-                    '',
-                productQuantity: _quantity,
+                onPressed: () {
+                  Get.find<AddToCartController>()
+                      .addToCart(
+                          productDetailsScreenController
+                                  .productDetailsData.productId ??
+                              0,
+                          productDetailsScreenController
+                              .availableColors[_selectedColorIndex],
+                          productDetailsScreenController
+                              .availableSizes[_selectedSizeIndex],
+                          _quantity)
+                      .then((result) {
+                    if (result) {
+                      Get.snackbar('Success', 'Add to cart successful.',
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                          borderRadius: 10,
+                          snackPosition: SnackPosition.BOTTOM);
+                    } else {
+                      Get.snackbar('Failed', 'Add to cart failed! Try again.',
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                          borderRadius: 10,
+                          snackPosition: SnackPosition.BOTTOM);
+                    }
+                  });
+                },
               )
             ],
           ),
