@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:craftybay_ecommerce_application/presentation/state_holders/product_details_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/custom_stepper.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/product_image_slider.dart';
-import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/product_name_with_stepper.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/product_rating_review_wishlist.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/product_details/select_product_color.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/section_title.dart';
@@ -36,6 +36,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _selectedColorIndex = 0;
 
   int _selectedSizeIndex = 0;
+  int _quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +84,28 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ProductNameWithStepper(
-                              productTitle: productDetailsScreenController
-                                      .productDetailsData.product?.title ??
-                                  '',
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  productDetailsScreenController
+                                          .productDetailsData.product?.title ??
+                                      '',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.5),
+                                )),
+                                CustomStepper(
+                                    lowerLimit: 1,
+                                    upperLimit: 10,
+                                    stepValue: 1,
+                                    value: 1,
+                                    onChange: (newValue) {
+                                      _quantity = newValue;
+                                      print(newValue);
+                                    })
+                              ],
                             ),
                             ProductRatingReviewWishList(
                                 productDetailsData:
@@ -140,14 +159,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               BottomNavCard(
-                  productDetailsData:
-                      productDetailsScreenController.productDetailsData,
-                  productColor: productDetailsScreenController
-                      .availableColors[_selectedColorIndex]
-                      .toString(),
-                  productSize: productDetailsScreenController
-                          .availableSizes[_selectedSizeIndex] ??
-                      '')
+                productDetailsData:
+                    productDetailsScreenController.productDetailsData,
+                productColor: productDetailsScreenController
+                    .availableColors[_selectedColorIndex]
+                    .toString(),
+                productSize: productDetailsScreenController
+                        .availableSizes[_selectedSizeIndex] ??
+                    '',
+                productQuantity: _quantity,
+              )
             ],
           ),
         );

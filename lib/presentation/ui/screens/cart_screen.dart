@@ -2,6 +2,7 @@ import 'package:craftybay_ecommerce_application/application/utility/app_colors.d
 import 'package:craftybay_ecommerce_application/presentation/state_holders/cart_screen_con'
     'troller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/main_bottom_nav_screen_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/product_details_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/cart_product_card.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -57,9 +58,16 @@ class _CartScreenState extends State<CartScreen> {
                   itemCount:
                       cartScreenController.cartListModel.data?.length ?? 0,
                   itemBuilder: (context, index) {
-                    return CartProductCard(
-                      cartListData:
-                          cartScreenController.cartListModel.data![index],
+                    return InkWell(
+                      onTap: () {
+                        Get.to(() => ProductDetailsScreen(
+                            productId: cartScreenController
+                                .cartListModel.data![index].productId!));
+                      },
+                      child: CartProductCard(
+                        cartListData:
+                            cartScreenController.cartListModel.data![index],
+                      ),
                     );
                   },
                 ),
@@ -90,7 +98,7 @@ class _CartScreenState extends State<CartScreen> {
                           height: 4,
                         ),
                         Text(
-                          '\$1000',
+                          '\$${cartScreenController.totalPrice}',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,

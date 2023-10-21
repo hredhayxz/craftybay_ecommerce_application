@@ -9,8 +9,8 @@ class DeleteCartListProductController extends GetxController {
   String get message => _message;
 
   Future<bool> deleteCartProduct(int productId) async {
-    final NetworkResponse response =
-        await NetworkCaller().getRequest(Urls.deleteCartProduct(productId));
+    final NetworkResponse response = await NetworkCaller()
+        .getRequest(Urls.deleteCartProduct(productId), isLogin: true);
     if (response.isSuccess) {
       return true;
     } else {

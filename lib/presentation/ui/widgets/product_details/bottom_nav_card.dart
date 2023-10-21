@@ -11,11 +11,13 @@ class BottomNavCard extends StatelessWidget {
       {super.key,
       required this.productDetailsData,
       required this.productColor,
-      required this.productSize});
+      required this.productSize,
+      required this.productQuantity});
 
   final ProductDetailsData productDetailsData;
   final String productColor;
   final String productSize;
+  final int productQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,7 @@ class BottomNavCard extends StatelessWidget {
                 onPressed: () {
                   addToCartController
                       .addToCart(productDetailsData.productId ?? 0,
-                          productColor, productSize)
+                          productColor, productSize, productQuantity)
                       .then((result) {
                     log(productSize);
                     if (result) {
@@ -75,8 +77,7 @@ class BottomNavCard extends StatelessWidget {
                           borderRadius: 10,
                           snackPosition: SnackPosition.BOTTOM);
                     } else {
-                      Get.snackbar(
-                          'Failed', 'Add to cart failed! Try again.',
+                      Get.snackbar('Failed', 'Add to cart failed! Try again.',
                           backgroundColor: Colors.red,
                           colorText: Colors.white,
                           borderRadius: 10,

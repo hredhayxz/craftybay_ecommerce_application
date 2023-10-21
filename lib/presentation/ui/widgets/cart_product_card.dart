@@ -8,8 +8,10 @@ import 'package:get/get.dart';
 
 class CartProductCard extends StatelessWidget {
   final CartListData cartListData;
+
   const CartProductCard({
-    super.key, required this.cartListData,
+    super.key,
+    required this.cartListData,
   });
 
   @override
@@ -23,10 +25,10 @@ class CartProductCard extends StatelessWidget {
           Container(
             width: 100,
             height: 100,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                    image: NetworkImage('https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D&w=1000&q=80'))),
+                    image: NetworkImage(cartListData.product?.image ?? ''))),
           ),
           const SizedBox(
             width: 8,
@@ -44,8 +46,9 @@ class CartProductCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             const Text(
-                               'Nike vswyhetdjhjnfcj Yeah...',
+                            Text(
+                              cartListData.product?.title ?? '',
+                              overflow: TextOverflow.ellipsis,
                               style:
                                   TextStyle(fontSize: 18, color: Colors.black),
                             ),
@@ -57,7 +60,8 @@ class CartProductCard extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.black54, fontSize: 12),
                                 children: [
-                                  TextSpan(text: 'Color: ${cartListData.color} '),
+                                  TextSpan(
+                                      text: 'Color: ${cartListData.color} '),
                                   TextSpan(text: 'Size: ${cartListData.size}'),
                                 ],
                               ),
@@ -76,7 +80,7 @@ class CartProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$100',
+                        '\$${cartListData.product?.price ?? 0}',
                         style: TextStyle(
                             color: AppColors.primaryColor,
                             fontSize: 18,
@@ -89,8 +93,11 @@ class CartProductCard extends StatelessWidget {
                             lowerLimit: 1,
                             upperLimit: 20,
                             stepValue: 1,
-                            value: 1,
-                            onChange: (int value) {},
+                            value: int.parse(cartListData.qty!),
+                            onChange: (int value) {
+                              Get.find<CartScreenController>()
+                                  .changeItem(cartListData.productId!, value);
+                            },
                           ),
                         ),
                       )
@@ -104,8 +111,10 @@ class CartProductCard extends StatelessWidget {
       ),
     );
   }
+
   Future<void> deleteCartProduct(int productId) async {
-    final response = await Get.find<DeleteCartListProductController>().deleteCartProduct(productId);
+    final response = await Get.find<DeleteCartListProductController>()
+        .deleteCartProduct(productId);
     if (response) {
       Get.snackbar('Success', 'Product delete successful.',
           backgroundColor: Colors.green,
