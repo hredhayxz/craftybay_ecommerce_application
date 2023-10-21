@@ -16,9 +16,10 @@ class HomeSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 180.0,
+              height: 210.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 5),
+              enlargeFactor: 0.2,
               viewportFraction: 1,
               onPageChanged: (int page, _) {
                 _selectedSlider.value = page;
@@ -31,54 +32,63 @@ class HomeSlider extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 5.0),
                   decoration: BoxDecoration(
                       color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(10)),
                   alignment: Alignment.center,
-                  child: Row(
+                  child: Column(
                     children: [
-                      Image.network(
-                        sliderData.image ?? '',
-                        scale: 1.2,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          sliderData.title ?? '',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Stack(
                         children: [
-                          Text(
-                            sliderData.title ?? '',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                          Image.network(
+                            sliderData.image ?? '',
+                            fit: BoxFit.contain,
                           ),
-                          Text(
-                            sliderData.price ?? '',
-                            style: const TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 35,
-                            width: 120,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                backgroundColor: Colors.white,
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                "Buy Now",
-                                style: TextStyle(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 14),
+                          Positioned(
+                            left: 35,
+                            top: 5,
+                            child: SizedBox(
+                              height: 80,
+                              child: Image.asset(
+                                'assets/images/hot_selling.png',
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
                         ],
                       ),
+                      const SizedBox(height: 8,),
+                      Text(
+                        sliderData.price ?? '',
+                        style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                backgroundColor: Colors.white,
+                                foregroundColor: AppColors.primaryColor,
+                              ),
+                              child: const Text('Buy Now', style: TextStyle(fontSize: 20),),
+                              onPressed: () {}),
+                        ),
+                      )
                     ],
                   ),
                 );
