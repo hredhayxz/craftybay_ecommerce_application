@@ -1,6 +1,9 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
 import 'package:craftybay_ecommerce_application/data/models/wishlist_product_model.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/delete_wishlist_product_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/wishlist_screen_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WishListProductCard extends StatelessWidget {
   final WishListProductData productData;
@@ -77,12 +80,18 @@ class WishListProductCard extends StatelessWidget {
                       ),
                       Card(
                         color: AppColors.primaryColor,
-                        child: const Padding(
-                          padding: EdgeInsets.all(2.0),
-                          child: Icon(
-                            Icons.delete_forever_outlined,
-                            size: 12,
-                            color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: InkWell(
+                            onTap: () async {
+                              await deleteWishlistProduct(
+                                  productData.productId!);
+                            },
+                            child: const Icon(
+                              Icons.delete_forever_outlined,
+                              size: 12,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       )
@@ -95,5 +104,24 @@ class WishListProductCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> deleteWishlistProduct(int productId) async {
+    final response = await Get.find<DeleteWishListProductController>()
+        .deleteWishlistProduct(productId);
+    if (response) {
+      Get.snackbar('Success', 'Remove from wishlist successful.',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+      await Get.find<WishListScreenController>().getWishlistProducts();
+    } else {
+      Get.snackbar('Failed', 'Remove from wishlist failed!',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          borderRadius: 10,
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }
