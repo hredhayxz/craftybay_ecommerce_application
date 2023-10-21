@@ -25,15 +25,14 @@ class ReviewCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SectionTitle(
-                title:
-                    '${productReviewData.profile?.firstName ?? ''} ${productReviewData.profile?.lastName ?? ''}',
+                title: productReviewData.profile?.cusName ?? '',
                 icon: Icons.person,
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                productReviewData.description.toString() ?? '',
+                productReviewData.description ?? '',
                 style: const TextStyle(color: Colors.black54, fontSize: 15),
               )
             ],
