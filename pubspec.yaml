@@ -42,6 +42,7 @@ dependencies:
   http: ^1.1.0
   shared_preferences: ^2.2.1
   connectivity_plus: ^5.0.0
+  flutter_rating_bar: ^4.0.1
   flutter_launcher_icons: ^0.13.1 #icon generate command: flutter pub run flutter_launcher_icons
 
 flutter_launcher_icons:

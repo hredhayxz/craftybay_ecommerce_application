@@ -2,6 +2,7 @@ import 'package:craftybay_ecommerce_application/presentation/state_holders/creat
 import 'package:craftybay_ecommerce_application/presentation/state_holders/product_review_screen_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 class CreateReviewScreen extends StatelessWidget {
@@ -9,11 +10,10 @@ class CreateReviewScreen extends StatelessWidget {
 
   CreateReviewScreen({super.key, required this.productId});
 
-  final TextEditingController _fNameTEController = TextEditingController();
-  final TextEditingController _lNameTEController = TextEditingController();
   final TextEditingController _reviewTEController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  double _rating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -34,40 +34,8 @@ class CreateReviewScreen extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _fNameTEController,
-                    decoration: const InputDecoration(
-                      hintText: 'First Name',
-                      labelText: 'First Name',
-                    ),
-                    validator: (String? text) {
-                      if (text?.isEmpty ?? true) {
-                        return 'Enter your first name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  TextFormField(
-                    controller: _lNameTEController,
-                    decoration: const InputDecoration(
-                      hintText: 'Last Name',
-                      labelText: 'Last Name',
-                    ),
-                    validator: (String? text) {
-                      if (text?.isEmpty ?? true) {
-                        return 'Enter your last name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  TextFormField(
                     controller: _reviewTEController,
-                    maxLines: 10,
+                    maxLines: 8,
                     decoration: const InputDecoration(
                       hintText: 'Write Review',
                       labelText: 'Write Review',
@@ -81,6 +49,25 @@ class CreateReviewScreen extends StatelessWidget {
                         return 'Please write your review';
                       }
                       return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  RatingBar.builder(
+                    initialRating: 4.5,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                      _rating = rating; // Update the rating variable
                     },
                   ),
                   const SizedBox(
@@ -99,22 +86,19 @@ class CreateReviewScreen extends StatelessWidget {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             createReviewScreenController
-                                .createReview(
-                                    _reviewTEController.text.trim(), productId)
+                                .createReview(_reviewTEController.text.trim(),
+                                    productId, _rating)
                                 .then((result) {
                               if (result) {
-                                _fNameTEController.clear();
-                                _lNameTEController.clear();
-                                _reviewTEController.clear();
                                 Get.snackbar(
                                     'Success', 'Add review successful.',
                                     backgroundColor: Colors.green,
                                     colorText: Colors.white,
                                     borderRadius: 10,
                                     snackPosition: SnackPosition.BOTTOM);
-                                Navigator.pop(context);
                                 Get.find<ProductReviewScreenController>()
                                     .getProductReviews(productId);
+                                Navigator.pop(context);
                               } else {
                                 Get.snackbar(
                                     'Failed', 'Add review failed! Try again.',

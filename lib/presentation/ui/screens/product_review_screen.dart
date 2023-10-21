@@ -1,5 +1,8 @@
 import 'package:craftybay_ecommerce_application/application/utility/app_colors.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/auth_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/read_profile_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/product_review_screen_controller.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/email_verification_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/create_review_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/custom_appbar.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/review_card.dart';
@@ -22,9 +25,7 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
       await Get.find<ProductReviewScreenController>()
           .getProductReviews(widget.productId);
     });
-setState(() {
-
-});
+    setState(() {});
     super.initState();
   }
 
@@ -80,10 +81,15 @@ setState(() {
                         color: Colors.black54),
                   ),
                   InkWell(
-                    onTap: () {
-                      Get.to(() => CreateReviewScreen(
-                            productId: widget.productId,
-                          ));
+                    onTap: () async {
+                      await Get.find<ReadProfileController>().readProfileData();
+                      if (AuthController.isLoggedIn) {
+                        Get.to(() => CreateReviewScreen(
+                              productId: widget.productId,
+                            ));
+                      } else {
+                        Get.offAll(() => EmailVerificationScreen());
+                      }
                     },
                     borderRadius: BorderRadius.circular(30),
                     child: CircleAvatar(

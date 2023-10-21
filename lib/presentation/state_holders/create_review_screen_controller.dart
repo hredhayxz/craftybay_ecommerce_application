@@ -11,13 +11,15 @@ class CreateReviewScreenController extends GetxController {
 
   String get message => _message;
 
-  Future<bool> createReview(String description, int productId) async {
+  Future<bool> createReview(
+      String description, int productId, double rating) async {
     _createReviewInProgress = true;
     update();
-    final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.createProductReview, {
-      "description":description,
-      "product_id":productId
+    final NetworkResponse response = await NetworkCaller().postRequest(
+        Urls.createProductReview, {
+      "description": description,
+      "product_id": productId,
+      "rating": rating
     });
     _createReviewInProgress = false;
     update();
