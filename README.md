@@ -93,7 +93,8 @@ CraftyBay integrates the following packages to enhance functionality:
 - `flutter_launcher_icons: ^0.13.1`: This package simplifies the process of generating and setting app icons for your Flutter application. It allows you to customize app icons with ease.
 - `carousel_slider: ^4.2.1`: Carousel Slider is a package for creating image carousels and sliders in your Flutter app. It's useful for creating interactive and dynamic image galleries.
 - `shared_preferences: ^2.2.1`: Shared Preferences is a Flutter package for persisting simple key-value data in a platform-agnostic manner. It's commonly used for storing app settings and small amounts of data.
-- - `flutter_rating_bar: ^4.0.1`: Use this package for give rating.
+- `flutter_rating_bar: ^4.0.1`: Use this package for give rating.
+- `webview_flutter: ^4.4.1`: A Flutter plugin that provides a WebView widget.
 
 
 ## Project Directory Structure
