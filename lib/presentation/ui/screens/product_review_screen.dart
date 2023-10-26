@@ -83,13 +83,9 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
                   InkWell(
                     onTap: () async {
                       await Get.find<ReadProfileController>().readProfileData();
-                      if (AuthController.isLoggedIn) {
-                        Get.to(() => CreateReviewScreen(
-                              productId: widget.productId,
-                            ));
-                      } else {
-                        Get.offAll(() => EmailVerificationScreen());
-                      }
+                      Get.to(() => CreateReviewScreen(
+                            productId: widget.productId,
+                          ));
                     },
                     borderRadius: BorderRadius.circular(30),
                     child: CircleAvatar(

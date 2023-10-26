@@ -15,7 +15,7 @@ class ProductImageSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 300.0,
+              height: 320.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 5),
               viewportFraction: 1,
@@ -40,7 +40,7 @@ class ProductImageSlider extends StatelessWidget {
           }).toList(),
         ),
         Positioned(
-          bottom: 10,
+          bottom: 15,
           left: 0,
           right: 0,
           child: ValueListenableBuilder(

@@ -16,7 +16,7 @@ class HomeSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 210.0,
+              height: 180.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 5),
               enlargeFactor: 0.2,
@@ -28,6 +28,7 @@ class HomeSlider extends StatelessWidget {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
+                  height: 180,
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.symmetric(horizontal: 5.0),
                   decoration: BoxDecoration(
@@ -36,47 +37,61 @@ class HomeSlider extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          sliderData.title ?? '',
-                          style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 25,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            sliderData.title ?? '',
+                            style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                      Stack(
-                        children: [
-                          Image.network(
-                            sliderData.image ?? '',
-                            fit: BoxFit.contain,
-                          ),
-                          Positioned(
-                            left: 35,
-                            top: 5,
-                            child: SizedBox(
-                              height: 80,
-                              child: Image.asset(
-                                'assets/images/hot_selling.png',
-                                fit: BoxFit.contain,
+                      SizedBox(
+                        height: 90,
+                        child: Stack(
+                          children: [
+                            Image.network(
+                              sliderData.image ?? '',
+                              fit: BoxFit.fitHeight,
+                              height: 90,
+                            ),
+                            Positioned(
+                              left: 35,
+                              top: 10,
+                              child: SizedBox(
+                                height: 70,
+                                child: Image.asset(
+                                  'assets/images/hot_selling.png',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            sliderData.price ?? '',
+                            style: const TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(height: 8,),
-                      Text(
-                        sliderData.price ?? '',
-                        style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: double.infinity,
+                      SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
@@ -85,7 +100,11 @@ class HomeSlider extends StatelessWidget {
                                 backgroundColor: Colors.white,
                                 foregroundColor: AppColors.primaryColor,
                               ),
-                              child: const Text('Buy Now', style: TextStyle(fontSize: 20),),
+                              child: const Text(
+                                'Buy Now',
+                                style: TextStyle(
+                                    fontSize: 10, fontWeight: FontWeight.bold),
+                              ),
                               onPressed: () {}),
                         ),
                       )
