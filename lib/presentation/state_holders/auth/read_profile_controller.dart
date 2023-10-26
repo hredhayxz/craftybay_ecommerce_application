@@ -14,7 +14,7 @@ class ReadProfileController extends GetxController {
 
   Future<bool> readProfileData() async {
     final NetworkResponse response =
-        await NetworkCaller().getRequest(Urls.readProfile);
+        await NetworkCaller().getRequest(Urls.readProfile, isLogin: true);
     if (response.isSuccess) {
       _readProfileModel =
           ReadProfileModel.fromJson(response.responseJson ?? {});

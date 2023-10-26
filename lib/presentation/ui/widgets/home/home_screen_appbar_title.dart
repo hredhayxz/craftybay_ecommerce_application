@@ -56,11 +56,7 @@ class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
           icon: Icons.person,
           onTap: () async {
             await Get.find<ReadProfileController>().readProfileData();
-            if (AuthController.isLoggedIn) {
-              Get.to(() => const UpdateProfileScreen());
-            } else {
-              Get.offAll(() => EmailVerificationScreen());
-            }
+            Get.to(() => const UpdateProfileScreen());
           },
         ),
         const SizedBox(
@@ -94,8 +90,7 @@ class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
           onTap: () async {
             await AuthController.clear();
             await AuthController.getAccessToken();
-            Get.snackbar(
-                'Success', 'Logout successful.',
+            Get.snackbar('Success', 'Logout successful.',
                 backgroundColor: Colors.green,
                 colorText: Colors.white,
                 borderRadius: 10,
