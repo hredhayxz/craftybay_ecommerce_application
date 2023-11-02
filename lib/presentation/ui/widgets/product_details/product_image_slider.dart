@@ -15,7 +15,7 @@ class ProductImageSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 320.0,
+              height: 240.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 5),
               viewportFraction: 1,
