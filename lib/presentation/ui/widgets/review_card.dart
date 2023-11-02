@@ -34,7 +34,28 @@ class ReviewCard extends StatelessWidget {
               Text(
                 productReviewData.description ?? '',
                 style: const TextStyle(color: Colors.black54, fontSize: 15),
-              )
+              ),
+              Row(
+                children: [
+                  Text(
+                    productReviewData.rating.toString(),
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: Image.asset(
+                      productReviewData.rating.toString() == '5'
+                          ? 'assets/images/full_star.png'
+                          : 'assets/images/half_star.png',
+                      height: 15,
+                      width: 15,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
