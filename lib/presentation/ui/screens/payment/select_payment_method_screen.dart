@@ -1,6 +1,6 @@
 import 'package:craftybay_ecommerce_application/data/models/payment/paymentMethod.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/payment/create_invoice_controller.dart';
-import 'package:craftybay_ecommerce_application/presentation/ui/screens/payment_webview_screen.dart';
+import 'package:craftybay_ecommerce_application/presentation/ui/screens/payment/payment_webview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
