@@ -29,9 +29,9 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
           onPageStarted: (String url) {},
           onPageFinished: (String url) {
             print('entered');
-            if (url.endsWith("tran_type=success")) {
-              navigateBack();
-            }
+            // if (url.endsWith("tran_type=success")) {
+            //   navigateBack();
+            // }
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
