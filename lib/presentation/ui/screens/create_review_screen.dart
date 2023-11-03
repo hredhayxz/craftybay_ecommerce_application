@@ -5,22 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
-class CreateReviewScreen extends StatelessWidget {
+class CreateReviewScreen extends StatefulWidget {
   final int productId;
 
-  CreateReviewScreen({super.key, required this.productId});
+  const CreateReviewScreen({super.key, required this.productId});
 
+  @override
+  State<CreateReviewScreen> createState() => _CreateReviewScreenState();
+}
+
+class _CreateReviewScreenState extends State<CreateReviewScreen> {
   final TextEditingController _reviewTEController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  double _rating = 0;
+
+  double _rating = 4.5;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomAppBar(title: 'Create Review', elevation: 1),
+        child: CustomAppBar(title: 'Create Review', elevation: 0),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -31,7 +37,61 @@ class CreateReviewScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "What is your rate?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: Colors.blueGrey[600],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Rating : ${_rating.toString()}",
+                    style: TextStyle(
+                      fontSize: 15,
+                      letterSpacing: .5,
+                      color: Colors.blueGrey[600],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  RatingBar.builder(
+                    initialRating: 4.5,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                      _rating = rating;
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(
                     height: 20,
+                  ),
+                  Text(
+                    '''Please Share Your opinion
+        about this product''',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.blueGrey[600],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   TextFormField(
                     controller: _reviewTEController,
@@ -52,25 +112,6 @@ class CreateReviewScreen extends StatelessWidget {
                     },
                   ),
                   const SizedBox(
-                    height: 12,
-                  ),
-                  RatingBar.builder(
-                    initialRating: 4.5,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                      _rating = rating; // Update the rating variable
-                    },
-                  ),
-                  const SizedBox(
                     height: 16,
                   ),
                   SizedBox(
@@ -87,7 +128,7 @@ class CreateReviewScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             createReviewScreenController
                                 .createReview(_reviewTEController.text.trim(),
-                                    productId, _rating)
+                                    widget.productId, _rating)
                                 .then((result) {
                               if (result) {
                                 Get.snackbar(
@@ -97,7 +138,7 @@ class CreateReviewScreen extends StatelessWidget {
                                     borderRadius: 10,
                                     snackPosition: SnackPosition.BOTTOM);
                                 Get.find<ProductReviewScreenController>()
-                                    .getProductReviews(productId);
+                                    .getProductReviews(widget.productId);
                                 Navigator.pop(context);
                               } else {
                                 Get.snackbar(
