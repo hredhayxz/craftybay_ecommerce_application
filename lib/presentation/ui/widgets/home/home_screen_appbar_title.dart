@@ -1,7 +1,6 @@
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/auth_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/auth/read_profile_controller.dart';
 import 'package:craftybay_ecommerce_application/presentation/state_holders/theme_manager_controller.dart';
-import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/email_verification_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/screens/auth/update_profile_screen.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/utility/assets_path.dart';
 import 'package:craftybay_ecommerce_application/presentation/ui/widgets/circular_icon_button.dart';
