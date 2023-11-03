@@ -26,7 +26,7 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomAppBar(title: 'Create Review', elevation: 0),
+        child: CustomAppBar(title: 'Create Review', elevation: 1),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -34,7 +34,7 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomAppBar(title: 'Reviews', elevation: 0),
+        child: CustomAppBar(title: 'Reviews', elevation: 1),
       ),
       body: GetBuilder<ProductReviewScreenController>(
           builder: (productReviewScreenController) {
