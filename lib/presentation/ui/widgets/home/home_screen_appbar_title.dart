@@ -8,6 +8,7 @@ import 'package:craftybay_ecommerce_application/presentation/ui/widgets/circular
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeScreenAppbarTitle extends StatefulWidget {
   const HomeScreenAppbarTitle({super.key});
@@ -64,7 +65,9 @@ class _HomeScreenAppbarTitleState extends State<HomeScreenAppbarTitle> {
         ),
         CircularIconButton(
           icon: Icons.call,
-          onTap: () {},
+          onTap: () {
+            launchUrlString("tel://${008801861883575}");
+          },
         ),
         const SizedBox(
           width: 8,
