@@ -15,7 +15,7 @@ class ProductImageSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 240.0,
+              height: 300.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 5),
               viewportFraction: 1,
@@ -26,15 +26,17 @@ class ProductImageSlider extends StatelessWidget {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
-                    image: DecorationImage(
-                      image: NetworkImage(i),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
                     ),
-                  ),
-                  alignment: Alignment.center,
-                );
+                    alignment: Alignment.center,
+                    child: Image.network(
+                      i,
+                      height: double.infinity,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ));
               },
             );
           }).toList(),
