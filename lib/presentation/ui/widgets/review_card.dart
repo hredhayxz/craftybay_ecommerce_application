@@ -38,6 +38,13 @@ class ReviewCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
+                    'Create at: ${productReviewData.createdAt.toString().substring(0, 10)}',
+                    style: const TextStyle(fontSize: 11, color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    width: 25,
+                  ),
+                  Text(
                     productReviewData.rating.toString(),
                     style: const TextStyle(fontSize: 15),
                   ),
