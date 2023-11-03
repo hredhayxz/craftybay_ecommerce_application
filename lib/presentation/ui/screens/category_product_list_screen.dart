@@ -35,7 +35,7 @@ class _CategoryProductListScreenState extends State<CategoryProductListScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
           title: widget.remarkName ?? '',
-          elevation: 0,
+          elevation: 1,
         ),
       ),
       body: GetBuilder<CategoryProductListController>(

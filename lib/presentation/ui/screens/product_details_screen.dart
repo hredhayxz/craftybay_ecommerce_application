@@ -77,6 +77,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           const CustomAppBar(
                             title: 'Product Details',
                             elevation: 0,
+                            bgColor: Colors.transparent,
                           ),
                         ],
                       ),
