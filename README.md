@@ -43,7 +43,37 @@ CraftyBay is continuously evolving to enhance the shopping experience for users,
 
 
 ## CraftyBay UI
-![all (1)](https://github.com/hredhayxz/craftybay_ecommerce_application/assets/60058949/88d4de63-ec05-4cae-a817-c17c440321ef)
+
+<div style="display: flex; flex-wrap: wrap;">
+   <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/1.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/2.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/26.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/3.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/4.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/5.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/6.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/7.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/8.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/9.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/10.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/23.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/24.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/25.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/11.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/12.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/13.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/14.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/15.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/16.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/17.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/18.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/19.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/20.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/21.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/22.png" width="200" />
+ <img src="https://github.com/hredhayxz/craftybay_ecommerce_application/blob/main/screenshots/27.png" width="200" />
+</div>
+
 
 ## Getting Started
 
