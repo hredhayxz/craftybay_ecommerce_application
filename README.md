@@ -124,7 +124,8 @@ CraftyBay integrates the following packages to enhance functionality:
 - `carousel_slider: ^4.2.1`: Carousel Slider is a package for creating image carousels and sliders in your Flutter app. It's useful for creating interactive and dynamic image galleries.
 - `shared_preferences: ^2.2.1`: Shared Preferences is a Flutter package for persisting simple key-value data in a platform-agnostic manner. It's commonly used for storing app settings and small amounts of data.
 - `flutter_rating_bar: ^4.0.1`: Use this package for give rating.
-- `webview_flutter: ^4.4.1`: A Flutter plugin that provides a WebView widget.
+- `pin_code_fields: ^8.0.1`: Pin Code Fields is a Flutter package that helps you implement PIN or OTP input fields in your app. It's highly customizable and easy to use for user authentication and verification.
+- `url_launcher: ^6.2.1`: A Flutter plugin that provides launch url.
 
 
 ## Project Directory Structure
@@ -147,6 +148,9 @@ craftybay_ecommerce_application/
     │   └── state_holder_binder.dart
     ├── data/
     │   ├── models/
+    │   │   ├── payment/
+    │   │   │   ├── invoice_create_response_model.dart
+    │   │   │   ├── paymentMethod.dart
     │   │   ├── cart_list_model.dart
     │   │   ├── category_model.dart
     │   │   ├── network_response.dart
@@ -168,6 +172,8 @@ craftybay_ecommerce_application/
     │   │   │   ├── email_verification_screen_controller.dart
     │   │   │   ├── otp_verification_screen_controller.dart
     │   │   │   └── read_profile_controller.dart
+    │   │   ├── payment/
+    │   │   │   ├── create_invoice_controller.dart
     │   │   ├── add_to_cart_controller.dart
     │   │   ├── cart_screen_controller.dart
     │   │   ├── category_controller.dart
@@ -192,6 +198,9 @@ craftybay_ecommerce_application/
     │       │   │   ├── otp_verification_screen.dart
     │       │   │   ├── read_profile_screen.dart
     │       │   │   └── update_profile_screen.dart
+    │       │   ├── payment/
+    │       │   │   ├── payment_webview_screen.dart
+    │       │   │   ├── select_payment_method_screen.dart
     │       │   ├── cart_screen.dart
     │       │   ├── category_list_screen.dart
     │       │   ├── category_product_list_screen.dart
